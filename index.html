@@ -34,7 +34,7 @@
         const jsonText = data.match(/google.visualization.Query.setResponse\((.*)\);/)[1];
         const json = JSON.parse(jsonText);
 
-        let html = "<table><tr><th>NOMBRE</th><th>PRECIO VENTA UNITARIO</th></tr>";
+        let html = "<table><tr><th>NOMBRE</th><th>PRECIO VENTA UNITARIO</th><th>uso</th></tr>";
         json.table.rows.forEach(row => {
           const nombre = row.c[0] ? row.c[0].v : "";
           const precio = row.c[1] ? row.c[1].v : "";
@@ -51,6 +51,7 @@
   </script>
 </body>
 </html>
+
 
 
 
