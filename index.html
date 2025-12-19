@@ -38,6 +38,7 @@
         json.table.rows.forEach(row => {
           const nombre = row.c[0] ? row.c[0].v : "";
           const precio = row.c[1] ? row.c[1].v : "";
+          const uso = row.c[3] ? row.c[3].v : "";
           html += `<tr><td>${nombre}</td><td>$${precio}</td></tr>`;
         });
         html += "</table>";
@@ -50,6 +51,7 @@
   </script>
 </body>
 </html>
+
 
 
 
