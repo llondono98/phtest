@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Inventario en tiempo real</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 60%;
+      margin: 20px auto;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 <body>
-  <h1>Precios actualizados</h1>
+  <h1 style="text-align:center;">Precios actualizados</h1>
   <div id="inventario"></div>
 
   <script>
@@ -15,15 +30,25 @@
     fetch(url)
       .then(res => res.text())
       .then(data => {
-        const json = JSON.parse(data.substr(47).slice(0, -2));
-        let html = "<table border='3'><tr><th>NOMBRE</th><th>PRECIO VENTA UNITARIO</th></tr>";
+        // Extraer el JSON con regex más seguro
+        const jsonText = data.match(/google.visualization.Query.setResponse\((.*)\);/)[1];
+        const json = JSON.parse(jsonText);
+
+        let html = "<table><tr><th>NOMBRE</th><th>PRECIO VENTA UNITARIO</th></tr>";
         json.table.rows.forEach(row => {
-          html += `<tr><td>${row.c[0].v}</td><td>$${row.c[1].v}</td></tr>`;
+          const nombre = row.c[0] ? row.c[0].v : "";
+          const precio = row.c[1] ? row.c[1].v : "";
+          html += `<tr><td>${nombre}</td><td>$${precio}</td></tr>`;
         });
         html += "</table>";
         document.getElementById("inventario").innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById("inventario").innerHTML = "<p>Error al cargar datos.</p>";
+        console.error(err);
       });
   </script>
 </body>
 </html>
+
 
