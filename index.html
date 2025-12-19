@@ -16,7 +16,7 @@
       .then(res => res.text())
       .then(data => {
         const json = JSON.parse(data.substr(47).slice(0, -2));
-        let html = "<table border='1'><tr><th>NOMBRE</th><th>PRECIO VENTA UNITARIO</th></tr>";
+        let html = "<table border='3'><tr><th>NOMBRE</th><th>PRECIO VENTA UNITARIO</th></tr>";
         json.table.rows.forEach(row => {
           html += `<tr><td>${row.c[0].v}</td><td>$${row.c[1].v}</td></tr>`;
         });
@@ -26,3 +26,4 @@
   </script>
 </body>
 </html>
+
