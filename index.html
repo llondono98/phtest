@@ -1,67 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Inventario en tiempo real</title>
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 60%;
-      margin: 20px auto;
-    }
-    th, td {
-      border: 1px solid #333;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #375362;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda de Salud</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8f0;
+        }
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .contenido {
+            padding: 40px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #1b5e20;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
 </head>
-<body style="background-color: #375362; color:white;">
-  <div style="text-align:center; margin-top:20px;">
-    <img src="logo.png" alt="Logo de la empresa" width="50" height="50">
-  </div>
-  <h1 style="text-align:center;">Precios actualizados</h1>
-  <div id="inventario"></div>
+<body>
+    <header>
+        <h1>🌿 Mi Tienda de Salud</h1>
+        <p>Productos naturales para tu bienestar</p>
+    </header>
+    <nav>
+        <a href="/productos">Productos</a>
+    </nav>
 
-  <script>
-    const sheetID = "1i5cN-Y4rkqqJEQ6Fz9o9DtR3KvC1WPVUzUe4s9_HTxo";
-    const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
-
-    fetch(url)
-      .then(res => res.text())
-      .then(data => {
-        // Extraer el JSON con regex más seguro
-        const jsonText = data.match(/google.visualization.Query.setResponse\((.*)\);/)[1];
-        const json = JSON.parse(jsonText);
-
-        let html = "<table><tr><th>NOMBRE</th><th>PRECIO VENTA UNITARIO</th><th>USO</th></tr>";
-        json.table.rows.forEach(row => {
-          const nombre = row.c[0] ? row.c[0].v : "";
-          const precio = row.c[1] ? row.c[1].v : "";
-          const uso = row.c[3] ? row.c[3].v : "";
-          html += `<tr><td>${nombre}</td><td>$${precio}</td><td>${uso}</td></tr>`;
-        });
-        html += "</table>";
-        document.getElementById("inventario").innerHTML = html;
-      })
-      .catch(err => {
-        document.getElementById("inventario").innerHTML = "<p>Error al cargar datos.</p>";
-        console.error(err);
-      });
-  </script>
+    <div class="contenido">
+        <h2>Bienvenido!</h2>
+        <p>Próximamente nuestros productos...</p>
+    </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
